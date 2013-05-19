@@ -63,10 +63,11 @@ if __name__ == '__main__':
                 matched_items.append(l)
     print "Found %d results..." % (len(matched_items))
     matched_items.sort(key=lambda x: x.sale_price or x.outlet_price)
+    max_len = max(map(lambda x: len(x.part_number), matched_items)) + 5
     for item in matched_items:
         price = item.outlet_price
         if item.sale_price is not None and item.sale_price < item.outlet_price:
             price = item.sale_price
-        print "\t$%.2f\t%s\t%s" % (price, item.part_number, item.description)
+        print "$%-10.2f%-*s%s" % (price, max_len, item.part_number, item.description)
     print "Done."
 
